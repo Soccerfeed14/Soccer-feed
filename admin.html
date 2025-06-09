@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Add Player</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header><h1>Admin Panel - Add Player</h1></header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="news.html">News</a>
+    <a href="teams.html">Teams</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="players.html">Players</a>
+    <a href="admin.html">Admin</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <main>
+    <form id="playerForm">
+      <label>Name: <input type="text" name="name" required></label><br><br>
+      <label>Team: <input type="text" name="team" required></label><br><br>
+      <label>Position: <input type="text" name="position" required></label><br><br>
+      <label>Goals: <input type="number" name="goals" required></label><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="status"></p>
+  </main>
+  <footer>&copy; 2025 Soccer Central. All rights reserved.</footer>
+  <script>
+    document.getElementById('playerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      fetch("https://script.google.com/macros/s/AKfycbyaA-OnoqRTTCURCVkQKPH61U5dRAnSqeFKsTowv1pVVjWn2Piy_AF4ff2UuvBa-OgClw/exec", {
+        method: "POST",
+        body: data
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById('status').textContent = "Player submitted successfully!";
+        form.reset();
+      })
+      .catch(err => {
+        document.getElementById('status').textContent = "Failed to submit player.";
+      });
+    });
+  </script>
+</body>
+</html>
